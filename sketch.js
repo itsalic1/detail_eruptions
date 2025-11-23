@@ -58,7 +58,7 @@ function getContinent(country) {
 }
 
 function preload() {
-  data = loadTable("assets/data_impatto.csv", "csv", "header");
+  data = loadTable("data_impatto.csv", "csv", "header");
 }
 
 function setup() {
