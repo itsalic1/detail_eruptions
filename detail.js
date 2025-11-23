@@ -15,7 +15,7 @@ function preload() {
   skullIcon = loadImage("human-skull.png");
   bandAidIcon = loadImage("band-aid.png");
   coinIcon = loadImage("coin.png")
-  houseIcon = loadImage("/home.png")
+  houseIcon = loadImage("home.png")
 }
 
 function setup() {
