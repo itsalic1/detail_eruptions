@@ -10,12 +10,12 @@ let visibleCount = 3;
 let skullIcon; bandAidIcon; coinIcon; houseIcon;
 
 function preload() {
-  data = loadTable("assets/data_impatto.csv", "csv", "header");
-  img = loadImage("assets/world_map.png");
-  skullIcon = loadImage("assets/icons/human-skull.png");
-  bandAidIcon = loadImage("assets/icons/band-aid.png");
-  coinIcon = loadImage("assets/icons/coin.png")
-  houseIcon = loadImage("assets/icons/home.png")
+  data = loadTable("data_impatto.csv", "csv", "header");
+  img = loadImage("world_map.png");
+  skullIcon = loadImage("human-skull.png");
+  bandAidIcon = loadImage("band-aid.png");
+  coinIcon = loadImage("coin.png")
+  houseIcon = loadImage("home.png")
 }
 
 function setup() {
