@@ -10,12 +10,12 @@ let visibleCount = 3;
 let skullIcon; bandAidIcon; coinIcon; houseIcon;
 
 function preload() {
-  data = loadTable("data_impatto.csv", "csv", "header");
-  img = loadImage("world_map.png");
-  skullIcon = loadImage("human-skull.png");
-  bandAidIcon = loadImage("band-aid.png");
-  coinIcon = loadImage("coin.png")
-  houseIcon = loadImage("home.png")
+  data = loadTable("assets/data_impatto.csv", "csv", "header");
+  img = loadImage("assets/world_map.png");
+  skullIcon = loadImage("assets/icons/human-skull.png");
+  bandAidIcon = loadImage("assets/icons/band-aid.png");
+  coinIcon = loadImage("assets/icons/coin.png")
+  houseIcon = loadImage("assets/icons/home.png")
 }
 
 function setup() {
@@ -529,19 +529,18 @@ function drawHousesIcons(value) {
   text("Houses destroyed: " + info.label, x + spacingX * maxIcons + 20, y + iconSize / 2);
 }
 
-// -- TIMELINE --
+// -- TIMELINE -- 
 function drawTimeline() {
   let y = height - 100;
-
   let orange = color(245, 40, 0);
-  let orangeLight = color(255, 167, 51);
+  let orangeLight = "#FFA733";
 
   // calcolo della lunghezza e posizione della linea 
   let lineLength = width / 2;
   let lineStart = (width - lineLength) / 2;
   let lineEnd = lineStart + lineLength;
 
-  // disegna la linea della timeline
+   // disegna la linea della timeline
   stroke(orange);
   strokeWeight(5);
   line(lineStart, y, lineEnd, y);
@@ -556,31 +555,19 @@ function drawTimeline() {
   // calcola le posizioni dei punti in base a quante eruzioni sono visibili
   let positions = [];
   if (subset.length === 1) {
-    positions = [lineStart + lineLength / 2]; 
+    positions = [lineStart + lineLength / 2];
   } else if (subset.length === 2) {
-    positions = [
-      lineStart + lineLength / 3,
-      lineStart + (2 * lineLength) / 3         
-    ];
+    positions = [lineStart + lineLength / 3, lineStart + (2 * lineLength) / 3];
   } else {
     let spacing = lineLength / (visibleCount + 1);
-    positions = [
-      lineStart + spacing,
-      lineStart + 2 * spacing,
-      lineStart + 3 * spacing
-    ];
+    positions = [lineStart + spacing, lineStart + 2 * spacing, lineStart + 3 * spacing];
   }
 
-  // ciclo su ogni eruzione visibile
   for (let i = 0; i < subset.length; i++) {
     let x = positions[i];
-
-    // controllo se il mouse è sopra il punto
     let isHovered = dist(mouseX, mouseY, x, y) < dotSize / 2;
 
-    /* sceglie il colore del punto:
-     - arancione chiaro se selezionato o hover
-     - arancione normale altrimenti */
+    // evidenzia selezionato (year + deaths) o hover
     if (
       subset[i].year === selectedYear &&
       String(subset[i].deaths) === String(selectedDeaths)
@@ -592,11 +579,10 @@ function drawTimeline() {
       fill(orange);
     }
 
-    // disegno il cerchio (dot)
     noStroke();
     ellipse(x, y, dotSize);
 
-    // scrivo l'anno sopra il punto
+    // etichetta anno
     fill(255);
     textAlign(CENTER);
     textSize(12);
@@ -624,6 +610,7 @@ function formatYear(year) {
 }
 
 // -- BACK BUTTON --
+
 function drawBackButton() {
   fill(255);
   textSize(18);
@@ -631,47 +618,43 @@ function drawBackButton() {
   text("←", 50, 40);
 }
 
-// -- INTERAZIONE PAGINA PRINCIPALE --
-// controllo del pulsante "indietro"
+// -- INTERAZIONE --
+
 function mousePressed() {
+  // collegamento page principale
   if (mouseX > 20 && mouseX < 80 && mouseY > 20 && mouseY < 60) {
     window.location.href = "index.html";
     return;
   }
 
-  // geometria della timeline posizione, punti iniziali / finali)
+  // geometria timeline
   let y = height - 100;
   let lineLength = width / 2;
   let lineStart = (width - lineLength) / 2;
   let lineEnd = lineStart + lineLength;
 
-  // controllo freccia sinistra
+  // freccia sinistra
   if (mouseX > lineStart - 30 && mouseX < lineStart && mouseY > y - 10 && mouseY < y + 10) {
     if (startIndex > 0) startIndex--;
     return;
   }
 
-  // controllo freccia destra
+  // freccia destra
   if (mouseX > lineEnd && mouseX < lineEnd + 30 && mouseY > y - 10 && mouseY < y + 10) {
     if (startIndex + visibleCount < eruptions.length) startIndex++;
     return;
   }
 
-  // seleziona solo una parte dell'elenco delle eruzioni, evitando di uscire dai limiti dell'array
-  let subset = [];
-  for (let i = startIndex; i < endIndex; i++) {
-  subset.push(eruptions[i]);
-}
+  // click su pallino timeline, con link name + year + deaths 
+  let endIndex = min(startIndex + visibleCount, eruptions.length);
+  let subset = eruptions.slice(startIndex, endIndex);
 
-  // calcola le posizioni dei pallini sulla timeline
+  // posizioni coerent con la funzione drawTimeline
   let positions = [];
-  // con 1 eruzione visibile - pallino al centro della linea
   if (subset.length === 1) {
     positions = [lineStart + lineLength / 2];
-  // con 2 eruzioni visibili - pallini ad 1/3 e 2/3 della linea
   } else if (subset.length === 2) {
     positions = [lineStart + lineLength / 3, lineStart + (2 * lineLength) / 3];
-  // con 3+ eruzioni visibili - calcola lo spacing, distribuendo in modo regolare
   } else {
     let spacing = lineLength / (visibleCount + 1);
     positions = [lineStart + spacing, lineStart + 2 * spacing, lineStart + 3 * spacing];
@@ -679,7 +662,6 @@ function mousePressed() {
 
   let dotSize = 16;
 
-  // controllo del click su ciascun pallino
   for (let i = 0; i < subset.length; i++) {
     let x = positions[i];
     if (dist(mouseX, mouseY, x, y) < dotSize / 2) {
@@ -690,7 +672,7 @@ function mousePressed() {
   }
 }
 
-/* -- RESPONSIVITÀ -- */
+// -- RESPONSIVITÀ -- //
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
