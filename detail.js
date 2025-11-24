@@ -603,9 +603,9 @@ function drawTimeline() {
 // funzione di supporto per formattare gli anni
 function formatYear(year) {
   if (year < 0) {
-    return Math.abs(year) + " a.C"; // anni negativi converiti in positivi + "a.C"
+    return Math.abs(year) + " BC"; // anni negativi converiti in positivi + "a.C"
   } else {
-    return year.toString(); // anni "positivi" invariati
+    return Math.abs(year) + " AD"; // anni "positivi" invariati
   }
 }
 
