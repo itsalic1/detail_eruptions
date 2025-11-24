@@ -15,7 +15,7 @@ function preload() {
   skullIcon = loadImage("human-skull.png");
   bandAidIcon = loadImage("band-aid.png");
   coinIcon = loadImage("coin.png")
-  houseIcon = loadImage("home.png")
+  houseIcon = loadImage("house.png")
 }
 
 function setup() {
@@ -342,7 +342,7 @@ function drawInfoBox(v) {
 
 // -- ICONE DEATHS --
 function drawDeathsIcons(value) {
-  let x = 40;
+  let x = 60;
   let y = height / 2 - 150;
   let maxIcons = 5;
   let iconSize = 24;
@@ -396,7 +396,7 @@ function drawDeathsIcons(value) {
 
 //-- ICONE INJURIES --
 function drawInjuriesIcons(value) {
-  let x = 40;
+  let x = 60;
   let y = height / 2 - 110;
   let maxIcons = 5;
   let iconSize = 24;
@@ -441,7 +441,7 @@ function drawInjuriesIcons(value) {
 
 // -- ICONE DAMAGES --
 function drawDamagesIcons(value) {
-  let x = 40;
+  let x = 60;
   let y = height / 2 - 70; 
   let maxIcons = 5;
   let iconSize = 24;
@@ -486,7 +486,7 @@ function drawDamagesIcons(value) {
 
 // -- ICONE HOUSE DESTRUCTIONS --
 function drawHousesIcons(value) {
-  let x = 40;
+  let x = 60;
   let y = height / 2 - 30;
   let maxIcons = 5;
   let iconSize = 24;
